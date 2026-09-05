@@ -44,11 +44,6 @@ export default function ActiveWorkoutScreen() {
   }, [activeSession]);
 
   const currentStep = activeSession?.steps[activeSession.currentStepIndex];
-  const nextStep =
-    activeSession && activeSession.currentStepIndex + 1 < activeSession.steps.length
-      ? activeSession.steps[activeSession.currentStepIndex + 1]
-      : null;
-
   const currentExercise = currentStep ? EXERCISES[currentStep.exerciseId] : null;
 
   // Previous performance for this exercise
@@ -164,9 +159,10 @@ export default function ActiveWorkoutScreen() {
           onAdd30={() => restTimer.addTime(30)}
           onSubtract30={() => restTimer.subtractTime(30)}
           onSkip={handleSkipRest}
-          nextExerciseName={nextStep?.exerciseName}
-          nextSetNumber={nextStep?.setNumber}
-          nextTotalSets={nextStep?.totalSets}
+          nextExerciseName={currentStep?.exerciseName}
+          nextSetNumber={currentStep?.setNumber}
+          nextTotalSets={currentStep?.totalSets}
+          isWarmup={currentStep?.isWarmup}
         />
       </SafeAreaView>
     );

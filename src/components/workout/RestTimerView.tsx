@@ -15,6 +15,7 @@ interface RestTimerViewProps {
   nextExerciseName?: string;
   nextSetNumber?: number;
   nextTotalSets?: number;
+  isWarmup?: boolean;
 }
 
 export const RestTimerView: React.FC<RestTimerViewProps> = ({
@@ -28,6 +29,7 @@ export const RestTimerView: React.FC<RestTimerViewProps> = ({
   nextExerciseName,
   nextSetNumber,
   nextTotalSets,
+  isWarmup,
 }) => {
   return (
     <View style={styles.container}>
@@ -90,10 +92,18 @@ export const RestTimerView: React.FC<RestTimerViewProps> = ({
         <View style={styles.nextUpCard}>
           <Text style={styles.nextUpLabel}>UP NEXT</Text>
           <Text style={styles.nextUpName}>{nextExerciseName}</Text>
-          {nextSetNumber && nextTotalSets && (
+          {isWarmup ? (
             <Text style={styles.nextUpSet}>
-              Set {nextSetNumber} of {nextTotalSets}
+              {nextTotalSets && nextTotalSets > 1
+                ? `Warm-up Set ${nextSetNumber} of ${nextTotalSets}`
+                : 'Warm-up Set'}
             </Text>
+          ) : (
+            nextSetNumber != null && nextTotalSets != null && (
+              <Text style={styles.nextUpSet}>
+                Set {nextSetNumber} of {nextTotalSets}
+              </Text>
+            )
           )}
         </View>
       )}
