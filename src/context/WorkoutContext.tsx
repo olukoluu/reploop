@@ -80,6 +80,7 @@ export const WorkoutProvider: React.FC<{ children: React.ReactNode }> = ({ child
   }, []);
 
   useEffect(() => {
+    NotificationService.setupNotificationChannel();
     refreshData();
   }, [refreshData]);
 
